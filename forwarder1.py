@@ -5,7 +5,7 @@ import time
 TOKEN = input("Нелегальная реклама Shichibukai. Введи свой discord токен: ").strip()
 
 # ID канала, куда отправлять
-CHANNEL_ID = "1380164920511041717"
+CHANNEL_ID = "645158517124366346"
 
 # Сообщение
 MESSAGE = """35к+
@@ -47,4 +47,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
