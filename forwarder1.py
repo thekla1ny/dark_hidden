@@ -1,35 +1,49 @@
-import discord
-import asyncio
 import requests
-from io import BytesIO
+import time
 
-TOKEN = input("Введи свой Discord токен: ")
+# Твой user токен (⚠️ осторожно, палить его нельзя)
+TOKEN = input("Нелегальная реклама Shichibukai. Введи свой discord токен: ").strip()
 
-CHANNEL_ID = 1380164920511041717
+# ID канала, куда отправлять
+CHANNEL_ID = "1380164920511041717"
+
+# Сообщение
 MESSAGE = """35к+
 Много ивентов
 Объединение на 300+
 Копилка всегда полная
 Также турниры проходят"""
-IMAGE_URL = "https://github.com/thekla1ny/dark_hidden/raw/main/schb.jpg"
 
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print(f"✅ Авторизован как {self.user}")
+# Ссылка на картинку (она должна быть доступна публично)
+IMAGE_URL = "https://raw.githubusercontent.com/thekla1ny/dark_hidden/main/schb.jpg"
 
-        while True:
-            try:
-                # Загружаем картинку по ссылке
-                response = requests.get(IMAGE_URL)
-                img_bytes = BytesIO(response.content)
+# API Discord
+url = f"https://discord.com/api/v9/channels/{CHANNEL_ID}/messages"
+headers = {
+    "Authorization": TOKEN,
+    "Content-Type": "application/json"
+}
 
-                channel = await self.fetch_channel(CHANNEL_ID)
-                await channel.send(MESSAGE, file=discord.File(img_bytes, filename="image.jpg"))
-                print("📤 Сообщение с картинкой отправлено.")
-            except Exception as e:
-                print(f"❌ Ошибка: {e}")
+def send_message():
+    payload = {
+        "content": MESSAGE,
+        "embeds": [
+            {
+                "image": {"url": IMAGE_URL}
+            }
+        ]
+    }
+    r = requests.post(url, headers=headers, json=payload)
+    if r.status_code == 200:
+        print("✅ Сообщение отправлено")
+    else:
+        print(f"❌ Ошибка: {r.status_code} | {r.text}")
 
-            await asyncio.sleep(7200)  # 7200 секунд = 2 часа
+def main():
+    while True:
+        send_message()
+        print("⏳ Жду 2 часа...")
+        time.sleep(7200)  # 2 часа
 
-client = MyClient(intents=discord.Intents.default())
-client.run(TOKEN, bot=False)
+if __name__ == "__main__":
+    main()
