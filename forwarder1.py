@@ -15,7 +15,7 @@ MESSAGE = """35к+
 Также турниры проходят"""
 
 # Ссылка на картинку (она должна быть доступна публично)
-IMAGE_URL = "https://raw.githubusercontent.com/thekla1ny/dark_hidden/main/schb.jpg"
+IMAGE_URL = "https://raw.githubusercontent.com/thekla1ny/dark_hidden/main/schb.jpg?raw=true"
 
 # API Discord
 url = f"https://discord.com/api/v9/channels/{CHANNEL_ID}/messages"
@@ -47,3 +47,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
